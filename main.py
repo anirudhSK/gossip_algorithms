@@ -3,10 +3,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-from graph_generators import create_graph, get_graph_info
+from graph_generators import create_graph
 from gossip_algorithms import NaturalRandomWalkGossip, DeterministicGossipAlgorithm
-from analysis import (compute_convergence_metrics, plot_node_convergence,
-                     analyze_graph_properties, theoretical_convergence_bound, theoretical_convergence_bounds)
+from analysis import plot_node_convergence, theoretical_convergence_bounds
 
 
 def run_single_experiment(graph_type: str, n_nodes: int, epsilon: float, algorithm: str = 'natural', **graph_kwargs):
@@ -152,7 +151,6 @@ def run_single_experiment(graph_type: str, n_nodes: int, epsilon: float, algorit
         'theoretical_lower': theoretical_lower,
         'theoretical_upper': theoretical_upper,
         'final_values': sim.current_values,
-        'figure': fig
     }
 
 
@@ -177,12 +175,9 @@ def main():
         {'graph_type': 'line', 'n_nodes': 20, 'algorithm': 'deterministic_alternating'},
     ]
 
-    all_results = []
-
     for exp in experiments:
         try:
             result = run_single_experiment(epsilon=epsilon, **exp)
-            all_results.append(result)
 
             # Print results for this graph
             alg_name = f" ({result['algorithm']})" if result['algorithm'] != 'natural' else ""
