@@ -164,13 +164,13 @@ def main():
     print(f"Error tolerance ε = {epsilon}")
     print()
 
-    # Test different graph topologies mentioned in the paper
+    # Test different graph topologies mentioned in the paper (all normalized to n=20)
     experiments = [
         {'graph_type': 'line', 'n_nodes': 20},
         {'graph_type': 'ring', 'n_nodes': 20},
-        {'graph_type': 'clique', 'n_nodes': 15},  # Complete graph from Section I-B
+        {'graph_type': 'clique', 'n_nodes': 20},  # Complete graph from Section I-B
         {'graph_type': 'random', 'n_nodes': 20, 'p': 0.3},  # Random graph
-        {'graph_type': 'grid', 'n_nodes': 16},  # 4x4 grid
+        {'graph_type': 'grid', 'n_nodes': 20},  # 4x5 grid (closest to 20 nodes)
         # Deterministic gossip algorithms with 0-1 probability matrices
         {'graph_type': 'line', 'n_nodes': 20, 'algorithm': 'deterministic_cyclic'},
         {'graph_type': 'line', 'n_nodes': 20, 'algorithm': 'deterministic_forward'},
