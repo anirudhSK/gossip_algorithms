@@ -23,8 +23,25 @@ Gossip algorithm simulator implementing Boyd et al. (2006) paper. Focus on async
 - **Strong connectivity requirement**: Communication graph must be strongly connected for convergence
 
 ## Commands That Work
-- `python3 main.py` - Run all experiments
+- First-time setup (run once):
+  ```
+  python3 -m venv .venv
+  source .venv/bin/activate
+  pip install -r requirements.txt
+  ```
+- Activate venv at the start of each terminal session:
+  ```
+  source .venv/bin/activate
+  ```
+- Run all experiments:
+  ```
+  python3 main.py
+  ```
 - Results autogenerate in directories like `line_n20_deterministic_cyclic/`
+
+## Environment Notes
+- `python3` points to Python 3.14 (updated by Homebrew when Ollama was installed)
+- Dependencies are managed via `.venv/` virtual environment — must be activated before running
 
 ## Issues to Avoid
 - Don't assume floating point errors cause average drift - it's mathematically preserved
