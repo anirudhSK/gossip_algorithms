@@ -33,6 +33,10 @@ Gossip algorithm simulator implementing Boyd et al. (2006) paper. Focus on async
   ```
   source .venv/bin/activate
   ```
+- Deactivate venv when done:
+  ```
+  deactivate
+  ```
 - Run all experiments:
   ```
   python3 main.py
