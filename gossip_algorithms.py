@@ -1,6 +1,6 @@
 import numpy as np
 import networkx as nx
-from typing import List, Tuple, Dict, Any
+from typing import Tuple, Dict, Any
 import random
 
 
@@ -93,11 +93,6 @@ class GossipSimulator:
             'history': np.array(self.history)
         }
 
-    def reset(self):
-        self.current_values = self.initial_values.copy()
-        self.history = [self.initial_values.copy()]
-        self.time_steps = 0
-
     def get_second_largest_eigenvalue(self) -> float:
         # Compute λ₂(W) from equation (7) and (25) - determines convergence rate per Theorem 3
         # W = I - D/(2n) + (P + P^T)/(2n) where D is diagonal matrix
@@ -123,39 +118,6 @@ class NaturalRandomWalkGossip(GossipSimulator):
     def _create_probability_matrix(self) -> np.ndarray:
         # Uniform contact probabilities for natural random walk
         return super()._create_probability_matrix('uniform')
-
-
-class OptimalGossipAlgorithm(GossipSimulator):
-    # Optimal algorithm from Section IV that minimizes λ₂(W)
-    # This is a heuristic since the full SDP solution from (52-53) is complex
-
-    def __init__(self, graph: nx.Graph, initial_values: np.ndarray):
-        super().__init__(graph, initial_values)
-        # Use heuristic for optimal P matrix
-        self.P = self._create_optimal_probability_matrix()
-
-    def _create_optimal_probability_matrix(self) -> np.ndarray:
-        # Heuristic for optimal P (actual solution requires SDP from Section IV)
-        P = np.zeros((self.n, self.n))
-
-        for i in range(self.n):
-            neighbors = list(self.graph.neighbors(i))
-            if not neighbors:
-                continue
-
-            # Heuristic: favor neighbors with higher degrees
-            degrees = [self.graph.degree(j) for j in neighbors]
-            total_degree = sum(degrees)
-
-            if total_degree > 0:
-                for j, deg in zip(neighbors, degrees):
-                    P[i, j] = deg / total_degree
-            else:
-                # Fallback to uniform
-                for j in neighbors:
-                    P[i, j] = 1.0 / len(neighbors)
-
-        return P
 
 
 class DeterministicGossipAlgorithm(GossipSimulator):
