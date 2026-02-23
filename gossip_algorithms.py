@@ -95,13 +95,9 @@ class GossipSimulator:
         # Compute λ₂(W) from equation (7) and (25) - determines convergence rate per Theorem 3
         # W = I - D/(2n) + (P + P^T)/(2n) where D is diagonal matrix
 
-        # Compute diagonal matrix D where D[i,i] = sum of P[i,:] + P[:,i]
-        D = np.zeros((self.n, self.n))
-        for i in range(self.n):
-            D[i, i] = sum(self.P[i, :] + self.P[:, i])
-
         # Correct W matrix from equation (25)
-        W = np.eye(self.n) - D/(2*self.n) + (self.P + self.P.T)/(2*self.n)
+        d = np.array([sum(self.P[i, :] + self.P[:, i]) for i in range(self.n)])
+        W = np.eye(self.n) - np.diag(d)/(2*self.n) + (self.P + self.P.T)/(2*self.n)
 
         eigenvalues = np.linalg.eigvals(W)
         eigenvalues = np.real(eigenvalues)  # Take real part
