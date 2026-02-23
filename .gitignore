@@ -1,0 +1,9 @@
+# Virtual environment
+.venv/
+
+# Generated experiment output
+*_n*/
+
+# Python cache
+__pycache__/
+*.pyc
