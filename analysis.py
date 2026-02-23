@@ -1,35 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from typing import List, Dict, Any, Optional
-
-def compute_convergence_metrics(history: np.ndarray, true_average: float) -> Dict[str, Any]:
-    n_steps, n_nodes = history.shape
-
-    # Compute L2 error over time as in Definition 1
-    errors = []
-    for t in range(n_steps):
-        error = np.linalg.norm(history[t] - true_average)
-        errors.append(error)
-
-    # Find ε-convergence times for different ε values (Definition 1)
-    epsilons = [1e-1, 1e-2, 1e-3, 1e-4, 1e-5]
-    convergence_times = {}
-
-    for eps in epsilons:
-        conv_time = None
-        for t, error in enumerate(errors):
-            if error < eps:
-                conv_time = t
-                break
-        convergence_times[f'eps_{eps}'] = conv_time
-
-    return {
-        'errors': np.array(errors),
-        'convergence_times': convergence_times,
-        'final_error': errors[-1] if errors else float('inf'),
-        'min_error': min(errors) if errors else float('inf')
-    }
-
+from typing import List, Optional
 
 def theoretical_convergence_bounds(W_eigenvalue: float, epsilon: float) -> tuple:
     # Bounds from Theorem 3 equations (5) and (6)

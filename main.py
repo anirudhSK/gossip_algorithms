@@ -2,6 +2,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import networkx as nx
 import os
 from graph_generators import create_graph
 from gossip_algorithms import NaturalRandomWalkGossip, DeterministicGossipAlgorithm
@@ -54,8 +55,6 @@ def run_single_experiment(graph_type: str, n_nodes: int, epsilon: float, algorit
                for i in range(len(graph.nodes()))}
     elif graph_type == 'line':
         pos = {i: (i, 0) for i in range(len(graph.nodes()))}
-
-    import networkx as nx
 
     nx.draw(graph, pos=pos, with_labels=True, node_color='lightblue',
             node_size=600, font_size=12, font_weight='bold', width=2)
