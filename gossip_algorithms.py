@@ -17,8 +17,6 @@ class GossipSimulator:
         self.history = [initial_values.copy()]
         self.time_steps = 0
 
-        # Create adjacency matrix and probability matrix P
-        self.adj_matrix = nx.adjacency_matrix(graph).toarray()
         self.P = self._create_probability_matrix()
 
     def _create_probability_matrix(self, algorithm_type='uniform') -> np.ndarray:
